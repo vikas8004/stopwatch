@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StopWatch-By Vikas</title>
+    <link rel="stylesheet" href="../css/stopwatch.css" />
+    <style>
+      @keyframes changeColor {
+        from {
+          color: cyan;
+        }
+        to {
+          color: white;
+        }
+      }
+
+      body {
+        margin: 0px;
+        padding: 0px;
+        font-family: "JetBrains Mono";
+        background-color: hsla(0, 0%, 0%, 0.8);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+      }
+
+      .buttons {
+        margin-top: 20px;
+      }
+
+      button {
+        margin-right: 10px;
+        font-family: JetBrains Mono;
+        font-size: 25px;
+        outline: none;
+        cursor: pointer;
+        color: white;
+        background-color: cyan;
+        border-radius: 8px;
+        padding: 5px;
+        border: 2px solid cyan;
+      }
+
+      button:hover {
+        color: cyan;
+        background-color: white;
+        border: 2px solid white;
+      }
+
+      p {
+        font-size: 30px;
+      }
+
+      h1 {
+        animation-name: changeColor;
+        animation-duration: 2s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Stopwatch : By Vikas Chaudhary</h1>
+      <div class="data">
+        <p>00 : 00 : 00 : 000</p>
+      </div>
+      <div class="buttons">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+
+    <script>
+      let st = document.getElementById("start");
+      let sp = document.getElementById("stop");
+      let rt = document.getElementById("reset");
+      let data = document.querySelector(".data");
+      let [hours, minutes, seconds, milliseconds] = [0, 0, 0, 0];
+      let clrint;
+      st.addEventListener("click", () => {
+        clrint = setInterval(displayTimer, 10);
+      });
+
+      // implementing the stop functionality
+      sp.addEventListener("click", () => {
+        clearInterval(clrint);
+      });
+      // implementing reset functionality
+      rt.addEventListener("click", () => {
+        clearInterval(clrint);
+        data.innerHTML = `<p>00 : 00 : 00 : 000</p>`;
+        [hours, minutes, seconds, milliseconds] = [0, 0, 0, 0];
+      });
+
+      function displayTimer() {
+        milliseconds += 10;
+        if (milliseconds == 1000) {
+          milliseconds = 0;
+          seconds++;
+          if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes == 60) {
+              minutes = 0;
+              hours++;
+            }
+          }
+        }
+        let hr = hours < 10 ? "0" + hours : hours;
+        let min = minutes < 10 ? "0" + minutes : minutes;
+        let sec = seconds < 10 ? "0" + seconds : seconds;
+        let msec =
+          milliseconds < 10
+            ? "00" + milliseconds
+            : milliseconds < 100
+            ? "0" + milliseconds
+            : milliseconds;
+        data.innerHTML = `<p>${hr} : ${min} : ${sec} : ${msec}</p>`;
+      }
+    </script>
+  </body>
+</html>
