@@ -69,13 +69,18 @@
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
       }
+      sub{
+        font-size: 20px;
+        font-weight: 800;
+        color: rgb(223, 123, 176);
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Stopwatch : By Vikas Chaudhary</h1>
       <div class="data">
-        <p>00 : 00 : 00 : 000</p>
+        <p>00<sub>hrs</sub> : 00<sub>min</sub> : 00<sub>sec</sub> : 000<sub>ms</sub></p>
       </div>
       <div class="buttons">
         <button id="start">Start</button>
@@ -102,7 +107,7 @@
       // implementing reset functionality
       rt.addEventListener("click", () => {
         clearInterval(clrint);
-        data.innerHTML = `<p>00 : 00 : 00 : 000</p>`;
+        data.innerHTML = `<p>00<sub>hrs</sub> : 00<sub>min</sub> : 00<sub>sec</sub> : 000<sub>ms</sub></p>`;
         [hours, minutes, seconds, milliseconds] = [0, 0, 0, 0];
       });
 
@@ -129,7 +134,7 @@
             : milliseconds < 100
             ? "0" + milliseconds
             : milliseconds;
-        data.innerHTML = `<p>${hr} : ${min} : ${sec} : ${msec}</p>`;
+        data.innerHTML = `<p>${hr}<sub>hrs</sub> : ${min}<sub>min</sub> : ${sec}<sub>sec</sub> : ${msec}<sub>ms</sub></p>`;
       }
     </script>
   </body>
